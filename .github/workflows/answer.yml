@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ACCOUNT: ${{ secrets.USERNAME }}
+      ACCOUNT: ${{ secrets.ACCOUNT }}
       PASSWORD: ${{ secrets.PASSWORD }}
       KEY: ${{ secrets.KEY }}
       IV: ${{ secrets.IV }}

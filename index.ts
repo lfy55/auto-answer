@@ -2,7 +2,7 @@ import CryptoJS from "crypto-js";
 import dayjs from "dayjs";
 
 const loginInfo = { account: process.env.ACCOUNT as string, password: process.env.PASSWORD as string };
-const key = process.env.KEY as string;
+const key = Buffer.from(process.env.KEY as string, "base64").toString("utf-8");
 const iv = process.env.IV as string;
 const today = dayjs().format("YYYY-MM-DD");
 
