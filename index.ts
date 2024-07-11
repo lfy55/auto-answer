@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 const loginInfo = { account: process.env.ACCOUNT as string, password: process.env.PASSWORD as string };
 const key = Buffer.from(process.env.KEY as string, "base64").toString("utf-8");
 const iv = process.env.IV as string;
-const today = dayjs().format("YYYY-MM-DD");
+const today = "2024-07-08"; // dayjs().format("YYYY-MM-DD");
 
 let token: string;
 
