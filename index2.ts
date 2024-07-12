@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { commitAnswer, getQuestionByDay, getUnCompletDates, login } from "./api/api";
+import { log } from "./utils/utils";
 
 process.env.TZ = "Asia/Shanghai";
 
@@ -11,13 +12,13 @@ await login();
 const days = (await getUnCompletDates(startDay, endDay)) ?? [];
 
 if (days.length) {
-  console.log("需要补学的日期", days);
+  log(`需要补学的日期 ${days.join(",")}`);
   for (let i = 0; i < days.length; i++) {
     const day = days[i];
     const answer = await getQuestionByDay(day);
     await commitAnswer(answer);
   }
-  console.log("补学完成");
+  log("本月补答完成");
 } else {
-  console.log("没有需要补学的题目");
+  log("没有需要补学的题目，执行完成");
 }

@@ -1,4 +1,5 @@
 import CryptoJS from "crypto-js";
+import { appendFileSync } from "node:fs";
 
 export async function customfetch<T>(url: string, options?: RequestInit) {
   try {
@@ -9,7 +10,8 @@ export async function customfetch<T>(url: string, options?: RequestInit) {
       throw new Error(data.msg);
     }
   } catch (error) {
-    console.log(error);
+    log(error as string);
+    throw new Error(error as string);
   }
 }
 
@@ -28,4 +30,10 @@ export function encryption(str: string) {
   const s = CryptoJS.enc.Utf8.parse(iv);
   const S = CryptoJS.AES.encrypt(y, c, { iv: s, mode: CryptoJS.mode.CBC });
   return CryptoJS.enc.Base64.stringify(S.ciphertext);
+}
+
+export function log(str: string) {
+  const handledStr = `${process.env.ACCOUNT}: ${str}`;
+  console.log(handledStr);
+  appendFileSync("output.txt", handledStr + "\n", { encoding: "utf-8" });
 }
