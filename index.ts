@@ -1,19 +1,21 @@
 import dayjs from "dayjs";
-import { checkHoliday, commitAnswer, getQuestionByDay, login } from "./api/api";
+import { checkComplete, commitAnswer, getQuestionByDay, login } from "./api/api";
 import { log } from "./utils/utils";
 
 process.env.TZ = "Asia/Shanghai";
 
-const today = process.env.DATE ?? dayjs().format("YYYY-MM-DD");
+const today = process.env.DATE || dayjs().format("YYYY-MM-DD");
 
 await login();
 
-let isHoliday = await checkHoliday(today);
+const staticInfo = await checkComplete(today);
 
-if (!isHoliday) {
+if (staticInfo.holiday) {
+  log("今天是休息日，跳过答题");
+} else if (staticInfo.correctNum === 1) {
+  log("当日已答题，跳过答题");
+} else {
   const answer = await getQuestionByDay(today);
   await commitAnswer(answer);
   log("答题完成");
-} else {
-  log("今天是休息日，不答题");
 }

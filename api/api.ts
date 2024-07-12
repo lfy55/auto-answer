@@ -33,12 +33,12 @@ async function commitAnswer(answerParam: AnswerParam) {
   console.log(data);
 }
 
-async function checkHoliday(date: string) {
+async function checkComplete(date: string) {
   const data = await customfetch<questionStaticResult>(
     `https://www.questiontest.cn:5988/clientapi/dailyQuestions/questionStatic?startDate=${date}&endDate=${date}`,
     { headers: { Authorization: globalThis.authToken } }
   );
-  return data?.questionStaticList[0].holiday;
+  return data.questionStaticList[0];
 }
 
 /** 获取未完成日期 */
@@ -50,4 +50,4 @@ async function getUnCompletDates(startDate: string, endDate: string) {
   return data?.questionStaticList.filter((item) => item.correctNum === 0 && !item.holiday).map((item) => item.dateStr);
 }
 
-export { login, getQuestionByDay, commitAnswer, checkHoliday, getUnCompletDates };
+export { login, getQuestionByDay, commitAnswer, checkComplete, getUnCompletDates };
