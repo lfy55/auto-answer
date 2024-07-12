@@ -34,6 +34,7 @@ jobs:
 
       - name: Run Answer Script
         run: bun run index2.ts
+        continue-on-error: true
 
       - name: Read output from file
         run: |

@@ -40,6 +40,7 @@ jobs:
 
       - name: Run Answer Script
         run: bun run index.ts
+        continue-on-error: true
 
       - name: Read output from file
         run: |
