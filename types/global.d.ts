@@ -1,10 +1,8 @@
-interface LoginInfo {
-  account: string;
-  password: string;
-}
+export {};
 
-interface AnswerParam {
-  questionId: number;
-  queryTime: string;
-  questionAnswer: string[];
+declare global {
+  var authToken: string;
+  interface GlobalThis {
+    // authToken: string;
+  }
 }
