@@ -2,8 +2,6 @@
 name: This Month Answer Script
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
   workflow_dispatch:
     inputs:
       account:
