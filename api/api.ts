@@ -25,6 +25,12 @@ async function getQuestionByDay(date: string) {
 }
 
 async function commitAnswer(answerParam: AnswerParam) {
+  if (answerParam.questionAnswer.some((answer) => answer.includes("//"))) {
+    answerParam.questionAnswer = answerParam.questionAnswer.map((answer) =>
+      answer.includes("//") ? answer.split("//")[0] : answer
+    );
+  }
+
   const data = await customfetch<any>(`https://www.questiontest.cn:5988/clientapi/dailyQuestions/commitAnswer`, {
     method: "POST",
     headers: { Authorization: globalThis.authToken, "Content-Type": "application/json" },
